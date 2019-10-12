@@ -9,6 +9,7 @@ tank_drive = MoveTank(left_motor, right_motor)
 speed = 75
 tank_drive.cs = ColorSensor()
 
+
 def move(move_dir):
     if move_dir == 'forward':
         rotations = 1
@@ -20,7 +21,7 @@ def move(move_dir):
         tank_drive.on_for_rotations(SpeedPercent(-speed), SpeedPercent(-speed), rotations)
 
 
-def turn(turn_dir, costum_turn_degree=0):
+def turn(turn_dir, costume_turn_degree=0):
     left_turn_degree = 420
     right_turn_degree = 420
     u_turn_degree = 360
@@ -31,16 +32,14 @@ def turn(turn_dir, costum_turn_degree=0):
         tank_drive.on_for_degrees(SpeedPercent(speed), SpeedPercent(0), right_turn_degree)
     elif turn_dir == 'u_turn':
         tank_drive.on_for_degrees(SpeedPercent(-speed), SpeedPercent(speed), u_turn_degree)
-    elif turn_dir == 'costum':
-        tank_drive.on_for_degrees(SpeedPercent(-speed), SpeedPercent(speed), costum_turn_degree)
+    elif turn_dir == 'costume':
+        tank_drive.on_for_degrees(SpeedPercent(-speed), SpeedPercent(speed), costume_turn_degree)
 
 
-
-# TODO Buggy part
 def follow_line():
     try:
         tank_drive.follow_line(
-            kp=11.3, ki=0.05, kd=3.2,
+            kp=5.3, ki=0.05, kd=3.2,
             speed=SpeedPercent(30))
     except Exception:
         tank_drive.stop()

@@ -11,9 +11,8 @@ cs.mode = 'COL-REFLECT'
 def on_line():
     return is_white()
 
-
 def is_white():
-    return cs.value() <= 65 and cs.value() >= 50
+    return cs.value() >= 50 and cs.value()<=60
 
 
 def is_yellow():

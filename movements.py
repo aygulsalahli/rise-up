@@ -21,7 +21,7 @@ def move(move_dir):
         tank_drive.on_for_rotations(SpeedPercent(-speed), SpeedPercent(-speed), rotations)
 
 
-def turn(turn_dir, costume_turn_degree=0):
+def turn(turn_dir, custom_turn_degree=0):
     left_turn_degree = 420
     right_turn_degree = 420
     u_turn_degree = 360
@@ -32,8 +32,8 @@ def turn(turn_dir, costume_turn_degree=0):
         tank_drive.on_for_degrees(SpeedPercent(speed), SpeedPercent(0), right_turn_degree)
     elif turn_dir == 'u_turn':
         tank_drive.on_for_degrees(SpeedPercent(-speed), SpeedPercent(speed), u_turn_degree)
-    elif turn_dir == 'costume':
-        tank_drive.on_for_degrees(SpeedPercent(-speed), SpeedPercent(speed), costume_turn_degree)
+    elif turn_dir == 'custom':
+        tank_drive.on_for_degrees(SpeedPercent(-speed), SpeedPercent(speed), custom_turn_degree)
 
 
 def follow_line():
@@ -41,9 +41,11 @@ def follow_line():
         tank_drive.follow_line(
             kp=5.3, ki=0.05, kd=3.2,
             speed=SpeedPercent(30))
+        print(ColorSensor.COLOR_WHITE)
     except Exception:
         tank_drive.stop()
         raise
+    print(ColorSensor.COLOR_WHITE)
 
 
 # Cycle

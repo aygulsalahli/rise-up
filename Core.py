@@ -1,43 +1,40 @@
 #!/usr/bin/env python3
 from ev3dev2.motor import Motor, LargeMotor, OUTPUT_B, OUTPUT_C, SpeedPercent, MoveTank
-from ev3dev2.sensor.lego import GyroSensor
-
 from time import sleep
 
 # TODO: Add code here
 left_motor = OUTPUT_B
 right_motor = OUTPUT_C
 tank_drive = MoveTank(left_motor, right_motor)
-gyro = GyroSensor()
+# Setpoints
+speed = 75
 
-def move_forward():
-    speed = 75
-    rotations = 2
+
+def move(move_dir):
+    if move_dir == 'forward':
+        rotations = 2
+        # Turn on left and right motor with defined speed for defined rotations
+        tank_drive.on_for_rotations(SpeedPercent(speed), SpeedPercent(speed), rotations)
+    if move_dir == 'reverse':
+        rotations = 2
+        # Turn on left and right motor with defined speed for defined rotations
+        tank_drive.on_for_rotations(SpeedPercent(-speed), SpeedPercent(-speed), rotations)
+
+
+def turn(turn_dir):
+    left_turn_degree = 360
+    right_turn_degree = 360
+    u_turn_degree = 360
     # Turn on left and right motor with defined speed for defined rotations
-    tank_drive.on_for_rotations(SpeedPercent(speed), SpeedPercent(speed), rotations)
+    if turn_dir == 'left':
+        tank_drive.on_for_degrees(SpeedPercent(0), SpeedPercent(speed), left_turn_degree)
+    elif turn_dir == 'right':
+        tank_drive.on_for_degrees(SpeedPercent(speed), SpeedPercent(0), right_turn_degree)
+    elif turn_dir == 'u_turn':
+        tank_drive.on_for_degrees(SpeedPercent(-speed), SpeedPercent(speed), u_turn_degree)
 
 
-def turn(direction):
-    speed = 75
-    rotations = 1
-    GyroSensor.mode = GyroSensor.MODE_GYRO_CAL
-    sleep (1)
-    if gyro.angle == 0:
-        GyroSensor.mode = GyroSensor.MODE_GYRO_ANG
-        print('Gyro calibrated ')
-
-    # Turn on left and right motor with defined speed for defined rotations
-    if direction == 'left' and GyroSensor.mode == GyroSensor.MODE_GYRO_ANG:
-        while gyro.angle <= -90:
-            tank_drive.on(SpeedPercent(0), SpeedPercent(speed))
-            print('turning left', gyro.angle)
-    elif direction == 'right'and GyroSensor.mode == GyroSensor.MODE_GYRO_ANG:
-        while gyro.angle >= 90:
-            tank_drive.on(SpeedPercent(speed), SpeedPercent(0))
-            print('turning right', gyro.angle)
-    else:
-        tank_drive.on(SpeedPercent(0), SpeedPercent(0))
-def follow_line:
+def follow_line():
     try:
         # Follow the line for 4500ms
         tank_drive.follow_line(
@@ -51,8 +48,17 @@ def follow_line:
         raise
 
 #Cycle
-#move_forward()
-
-turn('left')
-
-turn('right')
+while True:
+    move('forward')
+    sleep(1)
+    turn('left')
+    sleep(1)
+    move('forward')
+    sleep(1)
+    turn('left')
+    sleep (1)
+    move('forward')
+    sleep(1)
+    turn('left')
+    sleep (1)
+    move ('forward')

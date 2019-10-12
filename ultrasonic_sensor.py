@@ -10,5 +10,9 @@ us.mode = 'US-DIST-CM'
 units = us.units
 
 
+def get_distance():
+    return us.value()/10
+
+
 def is_blocked():
     return (us.value()/10) < 6  # convert mm to cm

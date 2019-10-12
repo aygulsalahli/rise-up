@@ -13,11 +13,11 @@ def on_line():
 
 
 def is_white():
-    return cs.value() <= 60 and cs.value() >= 50
+    return cs.value() <= 65 and cs.value() >= 50
 
 
 def is_yellow():
-    return cs.value() <= 70 and cs.value() >= 60
+    return cs.value() <= 70 and cs.value() >= 65
 
 
 def is_gray():

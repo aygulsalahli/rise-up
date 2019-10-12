@@ -14,11 +14,13 @@ def move(move_dir):
     if move_dir == 'forward':
         rotations = 1
         # Turn on left and right motor with defined speed for defined rotations
-        tank_drive.on_for_rotations(SpeedPercent(speed), SpeedPercent(speed), rotations)
+        tank_drive.on_for_rotations(SpeedPercent(
+            speed), SpeedPercent(speed), rotations)
     if move_dir == 'reverse':
         rotations = 1
         # Turn on left and right motor with defined speed for defined rotations
-        tank_drive.on_for_rotations(SpeedPercent(-speed), SpeedPercent(-speed), rotations)
+        tank_drive.on_for_rotations(
+            SpeedPercent(-speed), SpeedPercent(-speed), rotations)
 
 
 def turn(turn_dir, custom_turn_degree=0):
@@ -27,13 +29,17 @@ def turn(turn_dir, custom_turn_degree=0):
     u_turn_degree = 360
     # Turn on left and right motor with defined speed for defined rotations
     if turn_dir == 'left':
-        tank_drive.on_for_degrees(SpeedPercent(0), SpeedPercent(speed), left_turn_degree)
+        tank_drive.on_for_degrees(SpeedPercent(
+            0), SpeedPercent(speed), left_turn_degree)
     elif turn_dir == 'right':
-        tank_drive.on_for_degrees(SpeedPercent(speed), SpeedPercent(0), right_turn_degree)
+        tank_drive.on_for_degrees(SpeedPercent(
+            speed), SpeedPercent(0), right_turn_degree)
     elif turn_dir == 'u_turn':
-        tank_drive.on_for_degrees(SpeedPercent(-speed), SpeedPercent(speed), u_turn_degree)
+        tank_drive.on_for_degrees(
+            SpeedPercent(-speed), SpeedPercent(speed), u_turn_degree)
     elif turn_dir == 'custom':
-        tank_drive.on_for_degrees(SpeedPercent(-speed), SpeedPercent(speed), custom_turn_degree)
+        tank_drive.on_for_degrees(
+            SpeedPercent(-speed), SpeedPercent(speed), custom_turn_degree)
 
 
 def follow_line():
@@ -46,10 +52,3 @@ def follow_line():
         tank_drive.stop()
         raise
     print(ColorSensor.COLOR_WHITE)
-
-
-# Cycle
-while True:
-    move('forward')
-    follow_line()
-    break

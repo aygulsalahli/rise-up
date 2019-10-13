@@ -21,7 +21,7 @@ def move(move_dir):
         rotations = 1
         # Turn on left and right motor with defined speed for defined rotations
         tank_drive.on(SpeedPercent(-speed), SpeedPercent(-speed))
-    if move_dir == 'stop':
+    else:
         tank_drive.off()
 
 

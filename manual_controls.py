@@ -1,5 +1,7 @@
 import getch
 from threading import Thread, Lock
+from movements import *
+from time import sleep
 
 lock = Lock()
 user_input = ''
@@ -10,16 +12,15 @@ def get_user_input():
     global done
     global user_input
     while not done:
-        char = getch.getch()
-        if char == ' ':
+        reading_input = getch.getch()
+        if reading_input == ' ':
             lock.acquire()
-            user_input = char
             done = True
             lock.release()
         else:
-            char = char.lower()
+            reading_input = reading_input.lower()
         lock.acquire()
-        user_input = char
+        user_input = reading_input
         lock.release()
 
 
@@ -28,12 +29,33 @@ def execute_user_input():
     global user_input
     while not done:
         lock.acquire()
-        input = user_input
+        executing_input = user_input
+        user_input = ''
         lock.release()
-        if input == 'w':
-            print(user_input)
-
-
+        print('user input executer')
+        print(executing_input)
+        if executing_input == 'w':
+            print(executing_input)
+        if executing_input == 'w':
+            move('forward')
+        elif executing_input == 's':
+            move('reverse')
+        elif executing_input == 'a':
+            turn('left')
+        elif executing_input == 'd':
+            turn('right')
+        elif executing_input == 'u':
+            turn('u_turn')
+        elif executing_input == 'r':
+            lift('up')
+        elif executing_input == 'f':
+            lift('down')
+        elif executing_input == '':
+            lift('')
+            move('')
+            turn('')
+        sleep(0.1)
+        executing_input = ''
 thread_reader = Thread(target=get_user_input)
 thread_executer = Thread(target=execute_user_input)
 
